@@ -1,3 +1,15 @@
 <resources>
-    <string name="app_name">restaurantReservationApp</string>
+    <string name="app_name">अधिश का साउथ साइड ओएसिस</string>
+    <string-array name="partySize">
+        <item>1 People</item>
+        <item>2 People</item>
+        <item>3 People</item>
+        <item>4 People</item>
+        <item>5 People</item>
+        <item>6 People</item>
+        <item>7 People</item>
+        <item>8 People</item>
+        <item>9 People</item>
+        <item>10 People</item>
+    </string-array>
 </resources>
