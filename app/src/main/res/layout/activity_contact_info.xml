@@ -80,6 +80,7 @@
         android:layout_below="@+id/number"
         android:layout_alignParentRight="true"
         android:layout_margin="50dp"
+        android:id="@+id/btnNextContact"
         android:backgroundTint="#90B0ED"
         android:padding="5dp"
         android:text="Next"
