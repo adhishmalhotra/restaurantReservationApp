@@ -3,7 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/adhis/AndroidStudioProjects/restaurantReservationApp1/app/src/main/res/layout/activity_contact_info.xml" value="0.25" />
+        <entry key="..\:/Users/adhis/AndroidStudioProjects/restaurantReservationApp1/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/adhis/AndroidStudioProjects/restaurantReservationApp1/app/src/main/res/layout/activity_make_acancellation.xml" value="0.25" />
+        <entry key="..\:/Users/adhis/AndroidStudioProjects/restaurantReservationApp1/app/src/main/res/layout/activity_make_areservation.xml" value="0.25" />
       </map>
     </option>
   </component>
