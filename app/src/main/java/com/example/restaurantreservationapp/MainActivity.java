@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         createbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),MakeAReservation.class);
+                Intent intent = new Intent(getApplicationContext(),ContactInfoActivity.class);
                 startActivity(intent);
 
             }

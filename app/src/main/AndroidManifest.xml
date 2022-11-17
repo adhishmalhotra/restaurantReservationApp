@@ -29,6 +29,9 @@
         <activity
             android:name=".MakeAReservation" >
         </activity>
+        <activity
+            android:name=".ContactInfoActivity" >
+        </activity>
     </application>
 
 </manifest>
