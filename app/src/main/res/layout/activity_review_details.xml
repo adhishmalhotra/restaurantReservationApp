@@ -42,7 +42,7 @@
             android:layout_alignParentRight="true"
             android:backgroundTint="#90B0ED"
             android:padding="5dp"
-            android:text="Next"
+            android:text="Confirm"
             android:textSize="20dp" />
 
         <Button
