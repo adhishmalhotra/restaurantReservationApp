@@ -1,5 +1,6 @@
 package com.example.restaurantreservationapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -59,5 +60,23 @@ public class ContactInfoActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("Name",name.getText().toString());
+        outState.putString("Email",email.getText().toString());
+        outState.putString("Reemail",reemail.getText().toString());
+        outState.putString("PhoneNumber",number.getText().toString());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        name.setText(savedInstanceState.getString("Name"));
+        email.setText(savedInstanceState.getString("Email"));
+        reemail.setText(savedInstanceState.getString("Reemail"));
+        number.setText(savedInstanceState.getString("PhoneNumber"));
     }
 }

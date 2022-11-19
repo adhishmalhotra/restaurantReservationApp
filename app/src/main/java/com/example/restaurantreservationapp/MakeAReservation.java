@@ -17,7 +17,7 @@ public class MakeAReservation extends AppCompatActivity {
     HashMap<String,String> reservationInfo;
     EditText date,time,specialRequests;
     Spinner partySize,seatingType;
-    Button btnNextPage;
+    Button btnNextPage, btnPreviousPage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +30,7 @@ public class MakeAReservation extends AppCompatActivity {
         seatingType = findViewById(R.id.seatingType);
         specialRequests = findViewById(R.id.notes);
         btnNextPage = findViewById(R.id.nextReview);
+        btnPreviousPage = findViewById(R.id.previousPage);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.numberOfPeople, android.R.layout.simple_spinner_dropdown_item);
         partySize.setAdapter(adapter);
@@ -69,6 +70,14 @@ public class MakeAReservation extends AppCompatActivity {
                 reservationInfo.put("SpecialRequest", txtNotes);
                 Intent intent =new Intent(MakeAReservation.this, ReviewDetailsActivity.class);
                 intent.putExtra("reservationInfo", reservationInfo);
+                startActivity(intent);
+            }
+        });
+
+        btnPreviousPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent =new Intent(MakeAReservation.this, ContactInfoActivity.class);
                 startActivity(intent);
             }
         });
