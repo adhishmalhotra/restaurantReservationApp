@@ -14,11 +14,17 @@
         android:theme="@style/Theme.RestaurantReservationApp"
         tools:targetApi="31">
         <activity
+            android:name=".ReviewDetailsActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".MakeACancellation"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,12 +32,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".MakeAReservation" >
-        </activity>
-        <activity
-            android:name=".ContactInfoActivity" >
-        </activity>
+        <activity android:name=".MakeAReservation"></activity>
+        <activity android:name=".ContactInfoActivity"></activity>
     </application>
 
 </manifest>

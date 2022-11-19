@@ -29,7 +29,7 @@ public class ContactInfoActivity extends AppCompatActivity {
         email = findViewById(R.id.email);
         reemail = findViewById(R.id.reemail);
         number = findViewById(R.id.number);
-        next = findViewById(R.id.next);
+        next = findViewById(R.id.btnNextContact);
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,7 +54,7 @@ public class ContactInfoActivity extends AppCompatActivity {
                     Intent intent =new Intent(ContactInfoActivity.this, MakeAReservation.class);
                     intent.putExtra("reservationInfo", reservationInfo);
                     startActivity(intent);
-                    System.out.println(reservationInfo);
+//                    System.out.println(reservationInfo);
                 }
             }
         });

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ReviewDetailsActivity"
+    android:background="@drawable/backgrundimage">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Review Details"
+        android:textColor="@color/black"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:layout_margin="30dp"
+        android:id="@+id/reviewTitle"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@+id/reviewTitle"
+        android:text=""
+        android:id="@+id/reviewDetails"
+        android:textColor="@color/black"
+        android:textSize="25dp"
+        android:layout_margin="30dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/reviewDetails">
+
+        <Button
+            android:id="@+id/submitReservation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:backgroundTint="#90B0ED"
+            android:padding="5dp"
+            android:text="Next"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/editReservation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:backgroundTint="#90B0ED"
+            android:padding="5dp"
+            android:text="Previous"
+            android:textSize="20dp" />
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">restaurantReservationApp</string>
+    <string-array name="numberOfPeople">
+        <item>1 People</item>
+        <item>2 People</item>
+        <item>3 People</item>
+        <item>4 People</item>
+        <item>5 People</item>
+        <item>6 People</item>
+        <item>7 People</item>
+        <item>8 People</item>
+        <item>9 People</item>
+        <item>10 People</item>
+    </string-array>
+
+    <string-array name="seatingType">
+        <item>Booth</item>
+        <item>Banquet Table</item>
+        <item>High Top Tables</item>
+        <item>Bar Seating</item>
+        <item>Patio Seating</item>
+        <item>Rooftop Seating</item>
+    </string-array>
 </resources>
