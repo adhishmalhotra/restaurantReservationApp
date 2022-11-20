@@ -4,12 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.HashMap;
 
@@ -65,12 +67,17 @@ public class MakeAReservation extends AppCompatActivity {
                 String txtDate = date.getText().toString();
                 String txtTime = time.getText().toString();
                 String txtNotes = specialRequests.getText().toString();
-                reservationInfo.put("Date",txtDate);
-                reservationInfo.put("Time",txtTime);
-                reservationInfo.put("SpecialRequest", txtNotes);
-                Intent intent =new Intent(MakeAReservation.this, ReviewDetailsActivity.class);
-                intent.putExtra("reservationInfo", reservationInfo);
-                startActivity(intent);
+                if(TextUtils.isEmpty(txtDate) || TextUtils.isEmpty(txtTime) || TextUtils.isEmpty(txtNotes)){
+                    Toast.makeText(MakeAReservation.this, "All fields required", Toast.LENGTH_SHORT).show();
+                }else{
+                    reservationInfo.put("Date",txtDate);
+                    reservationInfo.put("Time",txtTime);
+                    reservationInfo.put("SpecialRequest", txtNotes);
+                    Intent intent =new Intent(MakeAReservation.this, ReviewDetailsActivity.class);
+                    intent.putExtra("reservationInfo", reservationInfo);
+                    startActivity(intent);
+                }
+
             }
         });
 
