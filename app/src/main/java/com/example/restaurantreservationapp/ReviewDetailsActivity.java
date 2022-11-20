@@ -45,6 +45,9 @@ public class ReviewDetailsActivity extends AppCompatActivity {
         String specialRequest = reservationInfo.get("SpecialRequest");
         txtOutput = "Name: " + "\t" + name + "\r\n"
                 + "Email: " + "\t" + email + "\r\n"
+
+
+
                 + "Phone Number: " + "\t" + phoneNumber + "\r\n"
                 + "Party Size: " + "\t" + partySize + "\r\n"
                 + "Date: " + "\t" + date + "\r\n"
