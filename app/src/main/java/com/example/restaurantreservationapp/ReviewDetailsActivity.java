@@ -28,7 +28,7 @@ public class ReviewDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_review_details);
         //initializing the firestore db component
         db = FirebaseFirestore.getInstance();
-        HashMap<String,String> reservationInfo;
+//
         //hash map which will be uploaded to firebase db
         reservationInfo = (HashMap<String,String>) getIntent().getSerializableExtra("reservationInfo");
         txtDetails = findViewById(R.id.reviewDetails);
