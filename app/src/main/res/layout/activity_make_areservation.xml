@@ -43,7 +43,7 @@
 
         <EditText
             android:id="@+id/date"
-            android:layout_width="match_parent"
+            android:layout_width="387dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/partySize"
             android:layout_marginStart="10dp"
@@ -60,19 +60,28 @@
             android:textSize="20dp" />
 
         <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/time"
+            android:layout_width="390dp"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/date"
-            android:background="#30ffffff"
-            android:hint="Select Time"
-            android:textSize="20dp"
-            android:textColor="@color/black"
             android:layout_margin="10dp"
-            android:padding="20dp"
+            android:background="#30ffffff"
             android:drawableLeft="@drawable/ic_time"
             android:drawablePadding="20dp"
-            android:inputType="time"/>
+            android:hint="Select Time"
+            android:inputType="time"
+            android:padding="20dp"
+            android:textColor="@color/black"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/btnDateTime"
+            android:layout_width="371dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:backgroundTint="#90B0ED"
+            android:text="Select Date and Time"
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/seatingTypeLabel"
@@ -138,6 +147,8 @@
                     android:text="Previous"
                     android:textSize="20dp" />
         </RelativeLayout>
+
+
     </LinearLayout>
 
 </ScrollView>
