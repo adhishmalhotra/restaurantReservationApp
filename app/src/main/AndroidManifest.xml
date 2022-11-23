@@ -41,6 +41,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ContactInfoActivity"></activity>
+        <activity android:name=".Confirmation_Cancellation_Page"></activity>
     </application>
 
 </manifest>
+

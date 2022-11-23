@@ -3,7 +3,6 @@ package com.example.restaurantreservationapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -29,7 +28,7 @@ public class ReviewDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_review_details);
         //initializing the firestore db component
         db = FirebaseFirestore.getInstance();
-        HashMap<String,String> reservationInfo;
+//
         //hash map which will be uploaded to firebase db
         reservationInfo = (HashMap<String,String>) getIntent().getSerializableExtra("reservationInfo");
         txtDetails = findViewById(R.id.reviewDetails);
@@ -44,6 +43,7 @@ public class ReviewDetailsActivity extends AppCompatActivity {
         String date = reservationInfo.get("Date");
         String time = reservationInfo.get("Time");
         String specialRequest = reservationInfo.get("SpecialRequest");
+
         txtOutput = "Name: " + "\t" + name + "\r\n"
                 + "Email: " + "\t" + email + "\r\n"
 
@@ -61,33 +61,22 @@ public class ReviewDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 db.collection("bookings")
-                        .add(reservationInfo)
-                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        .document(email).set(reservationInfo)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                Toast.makeText(ReviewDetailsActivity.this, "Entry uploaded to the db successfully", Toast.LENGTH_LONG).show();
+                            public void onSuccess(Void unused) {
+                                Toast.makeText(ReviewDetailsActivity.this, "Entry uploaded to the db successfully", Toast.LENGTH_SHORT).show();
                             }
                         })
-
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(ReviewDetailsActivity.this, "Entry could not be uploaded figure your stuff out!", Toast.LENGTH_LONG).show();
+                                Toast.makeText(ReviewDetailsActivity.this, "Entry not uploded to the database", Toast.LENGTH_SHORT).show();
                             }
                         });
-                Intent intent = new Intent(ReviewDetailsActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        btnPrevious.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ReviewDetailsActivity.this, MakeAReservation.class);
-                startActivity(intent);
             }
         });
     }
 
-
 }
+

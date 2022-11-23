@@ -26,5 +26,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        cancelbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(getApplicationContext(),MakeACancellation.class);
+                startActivity(intent1);
+            }
+        });
     }
 }

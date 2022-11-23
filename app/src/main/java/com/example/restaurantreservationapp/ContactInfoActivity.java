@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -44,11 +45,15 @@ public class ContactInfoActivity extends AppCompatActivity {
                 reservationInfo.put("PhoneNumber", txtNumber);
 
                 boolean allGood = false;
-                if(txtEmail.equals(txtReEmail)){
-                    allGood = true;
-                }
-                else{
-                    Toast.makeText(ContactInfoActivity.this, "The emails must match", Toast.LENGTH_SHORT).show();
+                if (TextUtils.isEmpty(txtName) || TextUtils.isEmpty(txtEmail) || TextUtils.isEmpty(txtReEmail) || TextUtils.isEmpty(txtNumber)){
+                    Toast.makeText(ContactInfoActivity.this, "All fields required", Toast.LENGTH_SHORT).show();
+                }else{
+                    if(txtEmail.equals(txtReEmail)){
+                        allGood = true;
+                    }
+                    else{
+                        Toast.makeText(ContactInfoActivity.this, "The emails must match", Toast.LENGTH_SHORT).show();
+                    }
                 }
 
                 if(allGood){
@@ -59,7 +64,6 @@ public class ContactInfoActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
     @Override
@@ -74,9 +78,14 @@ public class ContactInfoActivity extends AppCompatActivity {
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        name.setText(savedInstanceState.getString("Name"));
-        email.setText(savedInstanceState.getString("Email"));
-        reemail.setText(savedInstanceState.getString("Reemail"));
-        number.setText(savedInstanceState.getString("PhoneNumber"));
+        Intent intent_obj = new Intent();
+        String txtname = intent_obj.getStringExtra("Name");
+        String txtemail = intent_obj.getStringExtra("Email");
+        String txtreemail = intent_obj.getStringExtra("Reemail");
+        String txtphoneNumber = intent_obj.getStringExtra("PhoneNumber");
+        name.setText(txtname);
+        email.setText(txtemail);
+        reemail.setText(txtreemail);
+        number.setText(txtphoneNumber);
     }
 }
