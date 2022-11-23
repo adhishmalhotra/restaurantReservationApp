@@ -43,6 +43,7 @@ public class ReviewDetailsActivity extends AppCompatActivity {
         String date = reservationInfo.get("Date");
         String time = reservationInfo.get("Time");
         String specialRequest = reservationInfo.get("SpecialRequest");
+
         txtOutput = "Name: " + "\t" + name + "\r\n"
                 + "Email: " + "\t" + email + "\r\n"
 
@@ -60,23 +61,22 @@ public class ReviewDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 db.collection("bookings")
-                        .add(reservationInfo)
-                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        .document(email).set(reservationInfo)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
-                            public void onSuccess(DocumentReference documentReference) {
+                            public void onSuccess(Void unused) {
                                 Toast.makeText(ReviewDetailsActivity.this, "Entry uploaded to the db successfully", Toast.LENGTH_SHORT).show();
                             }
                         })
-
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(ReviewDetailsActivity.this, "Entry could not be uploaded figure your stuff out!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ReviewDetailsActivity.this, "Entry not uploded to the database", Toast.LENGTH_SHORT).show();
                             }
                         });
             }
         });
     }
 
-
 }
+

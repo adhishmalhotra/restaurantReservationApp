@@ -15,8 +15,10 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
@@ -29,6 +31,7 @@ public class MakeACancellation extends AppCompatActivity {
     Button checkbtn;
     TextView retrievebox;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,10 +42,7 @@ public class MakeACancellation extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         retrievebox = findViewById(R.id.canceldetail);
         checkbtn = findViewById(R.id.button);
-        String txtEmail = emailtext.getText().toString();
-        String txtNumber = phonenumber.getText().toString();
-        cancellationinfo.put("Email",txtEmail);
-        cancellationinfo.put("Phone Number",txtNumber);
+
 
 
         //on checkbtn need to see if the persons email and phonenumber is stored in firebase
@@ -56,16 +56,30 @@ public class MakeACancellation extends AppCompatActivity {
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                 if(task.isSuccessful()){
                                     StringBuffer buffer = new StringBuffer();//mutable string
+                                    boolean exist = false;
+
                                     for (DocumentSnapshot documentSnapshot: task.getResult()){
                                         if (emailtext.getText().toString().equals(documentSnapshot.getString("Email")))
                                             buffer.append(documentSnapshot.getString("Email") + "\n");
+                                            //Query query = emailref.whereEqualTo("Email",buffer);
+                                            //db.collection("bookings").document().delete();
+                                            exist = true;
                                     }
                                     retrievebox.setText(buffer);
-                                    Toast.makeText(MakeACancellation.this, "Your Reservation Exists ", Toast.LENGTH_SHORT).show();
-//                                    Intent intent =if new Intent(MakeACancellation.this,Confirmation_Cancellation_Page.class);
-//                                    intent.putExtra("reservationinfo", (CharSequence) buffer);
-//                                    startActivity(intent);
+                                    if (exist) {
 
+                                        Toast.makeText(MakeACancellation.this, "Your Reservation Exists ", Toast.LENGTH_SHORT).show();
+                                        String txtEmail = emailtext.getText().toString();
+                                        String txtNumber = phonenumber.getText().toString();
+                                        cancellationinfo.put("Email", txtEmail);
+                                        cancellationinfo.put("Phone Number", txtNumber);
+                                        Intent intent = new Intent(MakeACancellation.this, Confirmation_Cancellation_Page.class);
+                                        intent.putExtra("cancellationinfo", cancellationinfo);
+                                        startActivity(intent);
+                                    }
+                                    else {
+                                        Toast.makeText(MakeACancellation.this, "Entry Does Not Exists", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
                             }
                         })
@@ -75,24 +89,7 @@ public class MakeACancellation extends AppCompatActivity {
                                 Toast.makeText(MakeACancellation.this, "Your Reservation Does not Exist in our Database", Toast.LENGTH_SHORT).show();
                             }
                         });
-                // Check if the person exists in the database
 
-
-
-
-//                boolean allGood = false;
-//                if (TextUtils.isEmpty(txtEmail) ||  TextUtils.isEmpty(txtNumber)){
-//                    Toast.makeText(MakeACancellation.this, "All fields required", Toast.LENGTH_SHORT).show();
-//                }
-//                else{
-//                    allGood = true;
-//                }
-//                if(allGood){
-//                    Intent intent =new Intent(MakeACancellation.this, CancellationConfirmation.class);
-//                    intent.putExtra("cancellationinfo", cancellationinfo);
-//                    startActivity(intent);
-////                    System.out.println(reservationInfo);
-//                }
 
             }
         });

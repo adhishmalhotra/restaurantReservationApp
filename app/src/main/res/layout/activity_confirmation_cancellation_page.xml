@@ -33,7 +33,7 @@
         android:layout_below="@+id/canceldetails">
 
         <Button
-            android:id="@+id/submitReservation"
+            android:id="@+id/submitCancellation"
             android:layout_width="180dp"
             android:layout_height="56dp"
             android:layout_alignParentStart="true"
