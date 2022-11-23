@@ -1,29 +1,46 @@
 package com.example.restaurantreservationapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.text.DateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 
-public class MakeAReservation extends AppCompatActivity {
+public class MakeAReservation extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+    FirebaseFirestore db;
     HashMap<String,String> reservationInfo;
     EditText date,time,specialRequests;
     Spinner partySize,seatingType;
-    Button btnNextPage, btnPreviousPage;
+    Button btnNextPage, btnPreviousPage, btnDateTime;
+    int day, month, year, hour, minute;
+    int myday, myMonth, myYear, myHour, myMinute;
+    boolean check = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_areservation);
+        db = FirebaseFirestore.getInstance();
         HashMap<String,String> reservationInfo;
         reservationInfo = (HashMap<String,String>) getIntent().getSerializableExtra("reservationInfo");
         partySize = findViewById(R.id.partySize);
@@ -33,6 +50,7 @@ public class MakeAReservation extends AppCompatActivity {
         specialRequests = findViewById(R.id.notes);
         btnNextPage = findViewById(R.id.nextReview);
         btnPreviousPage = findViewById(R.id.previousPage);
+        btnDateTime = findViewById(R.id.btnDateTime);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.numberOfPeople, android.R.layout.simple_spinner_dropdown_item);
         partySize.setAdapter(adapter);
@@ -61,15 +79,46 @@ public class MakeAReservation extends AppCompatActivity {
             }
         });
 
+        btnDateTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar calendar = Calendar.getInstance();
+                year = calendar.get(Calendar.YEAR);
+                month = calendar.get(Calendar.MONTH);
+                day = calendar.get(Calendar.DAY_OF_MONTH);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(MakeAReservation.this, MakeAReservation.this, year, month, day);
+                datePickerDialog.show();
+            }
+        });
+
         btnNextPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String txtDate = date.getText().toString();
-                String txtTime = time.getText().toString();
-                String txtNotes = specialRequests.getText().toString();
-                if(TextUtils.isEmpty(txtDate) || TextUtils.isEmpty(txtTime) || TextUtils.isEmpty(txtNotes)){
-                    Toast.makeText(MakeAReservation.this, "All fields required", Toast.LENGTH_SHORT).show();
-                }else{
+                String checkTime = time.getText().toString();
+                String checkDate = date.getText().toString();
+                db.collection("bookings")
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if(task.isSuccessful()){
+                                    for (QueryDocumentSnapshot document : task.getResult()){
+                                        if(checkTime.equals(document.getString("Time"))
+                                           && checkDate.equals(document.getString("Date")))
+                                        {
+                                            check = false;
+                                            Toast.makeText(MakeAReservation.this, "Entry already exists choose another time slot", Toast.LENGTH_SHORT).show();
+                                        }
+
+                                    }
+                                }
+                            }
+                        });
+
+                if(check){
+                    String txtDate = date.getText().toString();
+                    String txtTime = time.getText().toString();
+                    String txtNotes = specialRequests.getText().toString();
                     reservationInfo.put("Date",txtDate);
                     reservationInfo.put("Time",txtTime);
                     reservationInfo.put("SpecialRequest", txtNotes);
@@ -89,5 +138,25 @@ public class MakeAReservation extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        myYear = year;
+        myday = day;
+        myMonth = month;
+        Calendar c = Calendar.getInstance();
+        hour = c.get(Calendar.HOUR);
+        minute = c.get(Calendar.MINUTE);
+        TimePickerDialog timePickerDialog = new TimePickerDialog(MakeAReservation.this, MakeAReservation.this, hour, minute, true);
+        timePickerDialog.show();
+    }
+
+    @Override
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        myHour = hourOfDay;
+        myMinute = minute;
+        date.setText(myYear + "/" + (myMonth + 1) + "/" + myday);
+        time.setText(myHour + ":" + myMinute);
     }
 }

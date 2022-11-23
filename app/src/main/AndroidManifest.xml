@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.restaurantreservationapp">
-
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
@@ -15,13 +14,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RestaurantReservationApp"
         tools:targetApi="31">
-        <activity
-            android:name=".Confirmation_Cancellation_Page"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
         <activity
             android:name=".ReviewDetailsActivity"
             android:exported="false">
@@ -41,8 +33,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MakeAReservation" />
-        <activity android:name=".ContactInfoActivity" />
+        <activity android:name=".MakeAReservation"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ContactInfoActivity"></activity>
+        <activity android:name=".Confirmation_Cancellation_Page"></activity>
     </application>
 
 </manifest>
+

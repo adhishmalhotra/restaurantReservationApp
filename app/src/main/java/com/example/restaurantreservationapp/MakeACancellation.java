@@ -3,6 +3,7 @@ package com.example.restaurantreservationapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -52,6 +53,7 @@ public class MakeACancellation extends AppCompatActivity {
 
                 db.collection("bookings")
                         .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                           
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                 if(task.isSuccessful()){
@@ -59,13 +61,14 @@ public class MakeACancellation extends AppCompatActivity {
                                     boolean exist = false;
 
                                     for (DocumentSnapshot documentSnapshot: task.getResult()){
-                                        if (emailtext.getText().toString().equals(documentSnapshot.getString("Email")));
+                                        if (emailtext.getText().toString().equals(documentSnapshot.getString("Email"))) {
                                             buffer.append(documentSnapshot.getString("Email") + "\n");
                                             //Query query = emailref.whereEqualTo("Email",buffer);
                                             //db.collection("bookings").document().delete();
                                             exist = true;
+                                        }
                                     }
-                                    retrievebox.setText(buffer);
+                                    //retrievebox.setText(buffer);
                                     if (exist) {
 
                                         Toast.makeText(MakeACancellation.this, "Your Reservation Exists ", Toast.LENGTH_SHORT).show();
