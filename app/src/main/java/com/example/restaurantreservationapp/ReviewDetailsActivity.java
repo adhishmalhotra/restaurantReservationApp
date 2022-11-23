@@ -61,11 +61,11 @@ public class ReviewDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 db.collection("bookings")
-                        .add(reservationInfo)
-                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        .document(email).set(reservationInfo)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                Toast.makeText(ReviewDetailsActivity.this, "Entry uploaded to the db successfully", Toast.LENGTH_LONG).show();
+                            public void onSuccess(Void unused) {
+                                Toast.makeText(ReviewDetailsActivity.this, "Entry uploaded to the db successfully", Toast.LENGTH_SHORT).show();
                             }
                         })
 
