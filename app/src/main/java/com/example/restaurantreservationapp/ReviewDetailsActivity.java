@@ -65,14 +65,14 @@ public class ReviewDetailsActivity extends AppCompatActivity {
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
-                                Toast.makeText(ReviewDetailsActivity.this, "Entry uploaded to the db successfully", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ReviewDetailsActivity.this, "Entry uploaded to the db successfully", Toast.LENGTH_LONG).show();
                             }
                         })
 
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(ReviewDetailsActivity.this, "Entry could not be uploaded figure your stuff out!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ReviewDetailsActivity.this, "Entry could not be uploaded figure your stuff out!", Toast.LENGTH_LONG).show();
                             }
                         });
                 Intent intent = new Intent(ReviewDetailsActivity.this, MainActivity.class);
