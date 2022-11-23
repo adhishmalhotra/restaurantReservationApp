@@ -12,7 +12,7 @@
         android:id="@+id/reservationtitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="अधिश का साउथ साइड ओएसिस"
+        android:text="Group 17's South Side Oasis"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -22,7 +22,8 @@
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintVertical_bias="0.0"
-        android:textSize="32dp"/>
+        android:fontFamily="cursive"
+        android:textSize="40dp"/>
 
     <Button
         android:id="@+id/createbutton"
