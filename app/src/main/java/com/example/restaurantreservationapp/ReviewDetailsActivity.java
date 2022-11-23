@@ -3,6 +3,7 @@ package com.example.restaurantreservationapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -74,6 +75,16 @@ public class ReviewDetailsActivity extends AppCompatActivity {
                                 Toast.makeText(ReviewDetailsActivity.this, "Entry could not be uploaded figure your stuff out!", Toast.LENGTH_SHORT).show();
                             }
                         });
+                Intent intent = new Intent(ReviewDetailsActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnPrevious.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ReviewDetailsActivity.this, MakeAReservation.class);
+                startActivity(intent);
             }
         });
     }
