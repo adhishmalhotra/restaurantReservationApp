@@ -1,5 +1,6 @@
 package com.example.restaurantreservationapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
@@ -14,22 +15,32 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 
 public class MakeAReservation extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+    FirebaseFirestore db;
     HashMap<String,String> reservationInfo;
     EditText date,time,specialRequests;
     Spinner partySize,seatingType;
     Button btnNextPage, btnPreviousPage, btnDateTime;
     int day, month, year, hour, minute;
     int myday, myMonth, myYear, myHour, myMinute;
+    boolean check = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_areservation);
+        db = FirebaseFirestore.getInstance();
         HashMap<String,String> reservationInfo;
         reservationInfo = (HashMap<String,String>) getIntent().getSerializableExtra("reservationInfo");
         partySize = findViewById(R.id.partySize);
@@ -83,15 +94,39 @@ public class MakeAReservation extends AppCompatActivity implements DatePickerDia
         btnNextPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String txtDate = date.getText().toString();
-                String txtTime = time.getText().toString();
-                String txtNotes = specialRequests.getText().toString();
-                reservationInfo.put("Date",txtDate);
-                reservationInfo.put("Time",txtTime);
-                reservationInfo.put("SpecialRequest", txtNotes);
-                Intent intent =new Intent(MakeAReservation.this, ReviewDetailsActivity.class);
-                intent.putExtra("reservationInfo", reservationInfo);
-                startActivity(intent);
+                String checkTime = time.getText().toString();
+                String checkDate = date.getText().toString();
+                db.collection("bookings")
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if(task.isSuccessful()){
+                                    for (QueryDocumentSnapshot document : task.getResult()){
+                                        if(checkTime.equals(document.getString("Time"))
+                                           && checkDate.equals(document.getString("Date")))
+                                        {
+                                            check = false;
+                                            Toast.makeText(MakeAReservation.this, "Entry already exists choose another time slot", Toast.LENGTH_SHORT).show();
+                                        }
+
+                                    }
+                                }
+                            }
+                        });
+
+                if(check){
+                    String txtDate = date.getText().toString();
+                    String txtTime = time.getText().toString();
+                    String txtNotes = specialRequests.getText().toString();
+                    reservationInfo.put("Date",txtDate);
+                    reservationInfo.put("Time",txtTime);
+                    reservationInfo.put("SpecialRequest", txtNotes);
+                    Intent intent =new Intent(MakeAReservation.this, ReviewDetailsActivity.class);
+                    intent.putExtra("reservationInfo", reservationInfo);
+                    startActivity(intent);
+                }
+
             }
         });
 
@@ -121,7 +156,7 @@ public class MakeAReservation extends AppCompatActivity implements DatePickerDia
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         myHour = hourOfDay;
         myMinute = minute;
-        date.setText(myYear + "/" + myMonth + "/" + myday);
+        date.setText(myYear + "/" + (myMonth + 1) + "/" + myday);
         time.setText(myHour + ":" + myMinute);
     }
 }
