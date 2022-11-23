@@ -104,7 +104,7 @@ public class MakeAReservation extends AppCompatActivity implements DatePickerDia
                                 if(task.isSuccessful()){
                                     for (QueryDocumentSnapshot document : task.getResult()){
                                         if(checkTime.equals(document.getString("Time"))
-                                           && checkDate.equals(document.getString("Date")))
+                                                && checkDate.equals(document.getString("Date")))
                                         {
                                             check = false;
                                             Toast.makeText(MakeAReservation.this, "Entry already exists choose another time slot", Toast.LENGTH_SHORT).show();
