@@ -59,7 +59,7 @@ public class MakeACancellation extends AppCompatActivity {
                                     boolean exist = false;
 
                                     for (DocumentSnapshot documentSnapshot: task.getResult()){
-                                        if (emailtext.getText().toString().equals(documentSnapshot.getString("Email")))
+                                        if (emailtext.getText().toString().equals(documentSnapshot.getString("Email")));
                                             buffer.append(documentSnapshot.getString("Email") + "\n");
                                             //Query query = emailref.whereEqualTo("Email",buffer);
                                             //db.collection("bookings").document().delete();
